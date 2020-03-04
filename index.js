@@ -2,6 +2,8 @@ var app = require('express')();
 var bodyParser = require('body-parser');
 var jwt = require('express-jwt');
 var morgan = require('morgan');
+const fs = require('fs');
+const path = require('path');
 
 var port = 3200;
 
@@ -16,10 +18,17 @@ app.use('/api/', jwt({
 }));
 
 morgan.token('user', function (req, res) {
-    return req.user ? req.user.username: 'guest'
-})
+    return req.user ? req.user.username : 'guest'
+});
 
-app.use(morgan(':date[web] user=:user method=:method path=:url status=:status response-time=:response-time ms content-length=:res[content-length]'))
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs', 'access.log'), { flag: 'a' });
+
+app.use(
+    morgan(
+        ':date[web] user=:user method=:method path=:url status=:status response-time=:response-time ms content-length=:res[content-length]',
+        { stream: accessLogStream }
+    )
+);
 
 app.get('/api/test', function (req, res) {
     res.send('this is get method');

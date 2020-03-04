@@ -1,0 +1,3 @@
+Wed, 04 Mar 2020 07:36:15 GMT user=guest method=GET path=/api/test status=200 response-time=3.953 ms content-length=18
+Wed, 04 Mar 2020 07:36:51 GMT user=guest method=GET path=/api/test status=200 response-time=0.409 ms content-length=18
+Wed, 04 Mar 2020 07:39:07 GMT user=0800871773 method=GET path=/api/test status=200 response-time=0.309 ms content-length=18
