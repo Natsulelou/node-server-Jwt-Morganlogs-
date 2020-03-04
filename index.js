@@ -1,5 +1,6 @@
 var app = require('express')();
 var bodyParser = require('body-parser')
+var jwt = require('express-jwt');
 
 var port = 3200;
 
@@ -8,8 +9,13 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+app.use('/api/', jwt({
+    secret: 'ngEurope rocks!',
+    credentialsRequired: false,
+}));
+
 app.get('/api/test', function (req, res) {
-    res.send('this is node server testing');
+    res.send(req.user);
 });
 
 app.post('/api/test', function (req, res) {
